@@ -33,6 +33,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     @Override
     public void onBindViewHolder(@NonNull StoreViewHolder holder, int position) {
+        holder.bind(storeList.get(position));
 
     }
 
@@ -84,7 +85,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
                             service +=store.getListServiceType().get(i).toString();
                         } else
                         {
-                            service +=store.getListServiceType().get(i).toString() +"/"
+                            service +=store.getListServiceType().get(i).toString() +"/";
                         }
                     }
 
