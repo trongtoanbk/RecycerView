@@ -1,10 +1,15 @@
 package com.example.recycerview;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +18,10 @@ import java.util.List;
 
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHolder> {
 
-  // Yêu cầu truyền data vào để xác định được kích thước của Adapter trong ham getItemCount
+
     private List<Store> storeList;
+    private OnItemClickListener onItemClickListener;
+
     public StoreAdapter(List<Store> storeList)
     {
         this.storeList =storeList;
@@ -26,8 +33,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     public StoreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater =LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.layout_item_store, parent, false);
-
-
         return new StoreViewHolder(view);
     }
 
@@ -45,7 +50,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         return storeList.size();
     }
 
-    class StoreViewHolder extends RecyclerView.ViewHolder{
+    static class StoreViewHolder extends RecyclerView.ViewHolder{
         ImageView img;
         TextView tvClose, tvName, tvDistance, tvSaleOff, tvAddress, tvServiceType;
 
@@ -59,6 +64,16 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
             tvDistance =itemView.findViewById(R.id.text_view_distance);
             tvSaleOff =itemView.findViewById(R.id.text_view_sale_off);
             tvServiceType =itemView.findViewById(R.id.text_view_service_type);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onClick(getAdapterPosition());
+                    }
+
+                    Log.d("BBB", "onClick: Position "+getAdapterPosition());
+                }
+            });
 
         }
         public void bind(Store store)
@@ -112,6 +127,13 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
                 tvSaleOff.setVisibility(View.VISIBLE);
             }
 
+        }
+        public void setOnclickListener(OnItemClickListener onItemClickListener)
+        {
+            this.onItemClickListener = onItemClickListener;
+        }
+        interface OnItemClickListener{
+            void onClick (int position);
         }
     }
 
