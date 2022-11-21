@@ -1,6 +1,5 @@
 package com.example.recycerview;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +7,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHolder> {
 
@@ -50,7 +50,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         return storeList.size();
     }
 
-    static class StoreViewHolder extends RecyclerView.ViewHolder{
+    class StoreViewHolder extends RecyclerView.ViewHolder{
         ImageView img;
         TextView tvClose, tvName, tvDistance, tvSaleOff, tvAddress, tvServiceType;
 
@@ -127,14 +127,50 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
                 tvSaleOff.setVisibility(View.VISIBLE);
             }
 
+            // Time close
+            Calendar calendar =Calendar.getInstance();
+            int hourCurrent =calendar.get(Calendar.HOUR);
+            int minutesCurrent =calendar.get(Calendar.MINUTE);
+
+            int milliSecondCurrent = (minutesCurrent +hourCurrent*60)*60000;
+
+            if (store.getOpenTime()>milliSecondCurrent || store.getCloseTime() <=milliSecondCurrent)
+            {
+                long minutes =MilliSecondToMinutes(store.getOpenTime());
+                long hour =MilliSecondToHour(store.getOpenTime());
+                tvClose.setText(String.format(" Đóng cửa \n Đặt bàn vào lúc \n %s:%s",prefixForTime(hour),prefixForTime(minutes)));
+                tvClose.setVisibility(View.VISIBLE);
+
+            }else
+            {
+                tvClose.setVisibility(View.GONE);
+
+            }
+
+
+
         }
-        public void setOnclickListener(OnItemClickListener onItemClickListener)
-        {
-            this.onItemClickListener = onItemClickListener;
-        }
-        interface OnItemClickListener{
-            void onClick (int position);
-        }
+
+
+    }
+    private String prefixForTime(long time) {
+        return time < 10 ? "0" + time : String.valueOf(time);
+    }
+    public long MilliSecondToHour(long milliSeconds)
+    {
+        return milliSeconds/(60*60000);
+    }
+    public long MilliSecondToMinutes(long milliSeconds)
+    {
+        return milliSeconds%(60*60000)/60000;
+    }
+
+    public void setOnclickListener(OnItemClickListener onItemClickListener)
+    {
+        this.onItemClickListener = onItemClickListener;
+    }
+    interface OnItemClickListener{
+        void onClick (int position);
     }
 
 }

@@ -106,7 +106,7 @@ public class Store {
     public static List<Store> getMock()
     {
         return new ArrayList<>(Arrays.asList(
-                new Store(R.drawable.bep_ba_muoi, 21600000, 65200000, "Bếp Bà Muối - Ăn Vặt Online", "606/52 Đường 3 Tháng 2, P. 14, Quận 10, TP. HCM", new ArrayList<>(Arrays.asList(ServiceType.SHOP_ONLINE, ServiceType.FAMILY)), "Cả ngày - Giảm 15%", 10),
+                new Store(R.drawable.bep_ba_muoi, 21600000, 652000000, "Bếp Bà Muối - Ăn Vặt Online", "606/52 Đường 3 Tháng 2, P. 14, Quận 10, TP. HCM", new ArrayList<>(Arrays.asList(ServiceType.SHOP_ONLINE, ServiceType.FAMILY)), "Cả ngày - Giảm 15%", 10),
                 new Store(R.drawable.ta_la, 0, 86400000, "Tá Lả - Ăn Vặt, Mì Xào, Cơm Chiên & Sinh Tố - Phan Văn Trị", "667/1 Phan Văn Trị, P. 7, Gò Vấp, TP. HCM", new ArrayList<>(Arrays.asList(ServiceType.STREET_FOOD, ServiceType.RESTAURANT)), "Sáng - Giảm 10%", 12),
                 new Store(R.drawable.royaltea, 29820000, 80520000, "Royaltea Vietnam By Hongkong - Sơn Kỳ", "35 Sơn Kỳ, P. Sơn Kỳ, Tân Phú, TP. HCM", new ArrayList<>(Arrays.asList(ServiceType.STREET_FOOD, ServiceType.RESTAURANT, ServiceType.BUFFET, ServiceType.GROUP)), "Tối - Giảm 5%", 20),
                 new Store(R.drawable.anh_thu_banh_mi, 21600000, 79200000, "Anh Thư - Bánh Mì & Bún Thịt Nướng", "115B Tôn Đản, P. 14, Quận 4, TP. HCM", new ArrayList<>(), "Trưa - Giảm 10%", 5),
